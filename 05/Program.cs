@@ -12,7 +12,42 @@ namespace _05
             // Console.WriteLine(new Seat("FFFBBBFRRR"));
             // Console.WriteLine(new Seat("BBFFBBFRLL"));
 
-            Part1();
+            //Part1();
+            Part2();
+        }
+
+        static void Part2()
+        {
+            var input = File.ReadLines("input.txt");
+            var map = new Seat[128, 8];
+            var minRow = 128;
+            var maxRow = 0;
+
+            foreach (var line in input)
+            {
+                var seat = new Seat(line.Trim());
+                map[seat.Row, seat.Column] = seat;
+                if (minRow > seat.Row)
+                {
+                    minRow = seat.Row;
+                }
+
+                if (maxRow < seat.Row)
+                {
+                    maxRow = seat.Row;
+                }
+            }
+
+            for (var i = minRow + 1; i <= maxRow - 1; i++)
+            {
+                for (var j = 0; j < map.GetUpperBound(1); j++)
+                {
+                    if (map[i, j] == null)
+                    {
+                        Console.WriteLine(new Seat(i, j));
+                    }
+                }
+            }
         }
 
         static void Part1()
@@ -31,12 +66,18 @@ namespace _05
             Console.WriteLine($"Max SeatId: {max}");
         }
 
-        public struct Seat
+        public class Seat
         {
             public Seat(string input)
             {
                 Row = GetResult(input.Substring(0, 7), 128, 'F', 'B');
                 Column = GetResult(input.Substring(7), 8, 'L', 'R');
+            }
+
+            public Seat(int row, int col)
+            {
+                Row = row;
+                Column = col;
             }
 
             private static int GetResult(string input, int range, char lowerIndicator, char upperIndicator)
