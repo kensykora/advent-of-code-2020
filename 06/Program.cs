@@ -13,12 +13,12 @@ namespace _06
 
         static void Part1()
         {
-            var input = File.ReadAllText("input.txt");
-            var groups = input.Split("\r\n\r\n");
-            var groupData = groups.Select(x => x.Replace("\r\n", null).Distinct());
-            
-            var count = groupData.Sum(x => x.Count());
-            Console.WriteLine(count);
+            Console.WriteLine(
+                File.ReadAllText("input.txt")
+                    .Split("\r\n\r\n") // Split out groups (1 group per array element)
+                    .Select(x => x.Replace("\r\n", null).Distinct()) // Ignore line breaks and get distinct answers
+                    .Sum(x => x.Count()) // Sum the counts of the distinct answers
+            );
         }
     }
 }
