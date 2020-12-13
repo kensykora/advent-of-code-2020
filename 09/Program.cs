@@ -13,17 +13,44 @@ namespace _09
                 .Select(x => ulong.Parse(x))
                 .ToArray();
 
-            Part1(input);
+            var target = Part1(input);
+            Part2(input, target);
         }
 
-        static void Part1(ulong[] input)
+        static ulong Part1(ulong[] input)
         {
             for (var i = 25; i < input.Length; i++)
             {
                 if (!IsValid(input.Skip(i - 25).Take(25).ToArray(), input[i]))
                 {
                     Console.WriteLine(input[i]);
-                    return;
+                    return input[i];
+                }
+            }
+
+            throw new ApplicationException("not found");
+        }
+
+        static void Part2(ulong[] input, ulong target)
+        {
+            int i = 0, j = 0;
+            for (; i < input.Length; i++)
+            {
+                var sum = input[i];
+
+                for (j = i + 1; j < input.Length; j++)
+                {
+                    sum += input[j];
+                    if (sum >= target)
+                    {
+                        break;
+                    }
+                }
+
+                if (sum == target)
+                {
+                    var range = input.Skip(i).Take(j - i + 1);
+                    Console.WriteLine(range.Min() + range.Max());
                 }
             }
         }
