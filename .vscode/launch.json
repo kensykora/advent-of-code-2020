@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/08/bin/Debug/net5.0/08.dll",
+            "program": "${workspaceFolder}/10/bin/Debug/net5.0/10.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/08",
+            "cwd": "${workspaceFolder}/10",
             "console": "internalConsole",
             "stopAtEntry": false
         },
